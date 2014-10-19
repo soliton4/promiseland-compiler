@@ -1,0 +1,29 @@
+{
+  "name": "promiseland-compiler",
+  "version": "0.0.13",
+  "author": {
+    "name": "Matthias Behrens",
+    "email": "matthias.behrens@gmail.com"
+  },
+  "bin" : { "promiselandCompiler" : "./compiler.js" },
+  "description": "compile all files in a directory",
+  "main": "compiler.js"
+  , "dependencies" : {
+    "promiseland" :  "0.0.13",
+    "optimist": "*",
+    "watch": "0.11.*"
+  },
+  "keywords": [
+    "promiseland"
+    , "compiler"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/soliton4/promiseland-compiler"
+  },
+  "license": "LGPLv3",
+  "engines": {
+    "node": ">=0.10"
+  },
+  "readmeFilename": "README.md"
+}

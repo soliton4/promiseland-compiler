@@ -1,0 +1,105 @@
+
+var optimist = require "optimist";
+
+var fs = require "fs";
+
+var argv = optimist.argv;
+
+var isPlandFile = (fname){
+  if (fname.substr(fname.length - 6) == ".pland"){
+    return true;
+  };
+};
+
+var blockCnt = 0;
+var stepPs = new Promise;
+var step = (){
+  stepPs.resolve();
+  stepPs = new Promise();
+};
+var block = (){
+  while (blockCnt){
+    *stepPs;
+  };
+  blockCnt += 1;
+  step();
+};
+
+var unblock = (){
+  blockCnt -= 1;
+  step();
+};
+
+var compile = (fname){
+  console.log("...");
+  *block();
+  
+  var callback = new Callback();
+  
+  console.log("processing:" + fname);
+  var jsStr = "";
+  try{
+    fs.readFile(fname, {
+      encoding: "utf8"
+    }, callback);
+    var codeStr = (*callback.promise)[1];
+    var parser = new promiseland.Parser();
+    
+    var res = (*parser.parse(codeStr));
+    if (res.errors && res.errors.length){
+      console.log(res.errors[0]);
+      jsStr = "";
+    }else{
+      jsStr = res.javascript;
+    };
+
+  }catch(e){
+    console.log("error");
+    console.log(e);
+
+  };
+
+  try{
+    callback = new Callback();
+    fs.writeFile(fname.substr(0, fname.length - 6 ) + ".js", jsStr, callback);
+    *callback.promise;
+  }catch(e){
+    console.log("error");
+    console.log(e);
+    
+  };
+  
+  unblock();
+};
+
+if (argv.watch){
+  
+  var watch = require "watch";
+  
+  var dir = argv.dir || process.cwd();
+  
+  var cb = new Callback();
+  watch.createMonitor(dir, cb);
+  var monitor = (*cb.promise)[0];
+
+  //monitor.files['/home/mikeal/.zshrc'] // Stat object for my zshrc.
+  monitor.on("created", function (f, stat) {
+    if (stat.isDirectory()){
+      return;
+    };
+    if (!isPlandFile(f)){
+      return;
+    };
+    compile(f);
+  });
+  monitor.on("changed", function (f, curr, prev) {
+    if (!isPlandFile(f)){
+      return;
+    };
+    compile(f);
+  });
+  monitor.on("removed", function (f, stat) {
+    // Handle removed files
+  });
+  
+};
