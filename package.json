@@ -9,7 +9,7 @@
   "description": "compile all files in a directory",
   "main": "compiler.js"
   , "dependencies" : {
-    "promiseland" :  "0.0.17",
+    "promiseland" :  "0.0.18",
     "optimist": "*",
     "watch": "0.11.*"
   },
