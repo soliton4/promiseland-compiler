@@ -1,6 +1,6 @@
 {
   "name": "promiseland-compiler",
-  "version": "0.0.20",
+  "version": "0.0.22",
   "author": {
     "name": "Matthias Behrens",
     "email": "matthias.behrens@gmail.com"
@@ -9,7 +9,7 @@
   "description": "compile all files in a directory",
   "main": "compiler.js"
   , "dependencies" : {
-    "promiseland" :  "0.0.20",
+    "promiseland" :  "0.0.22",
     "optimist": "*",
     "watch": "0.11.*"
   },
